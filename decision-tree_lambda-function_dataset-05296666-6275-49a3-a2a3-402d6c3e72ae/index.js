@@ -15,25 +15,32 @@ var states = {
     DESCRIPTIONMODE: '_DESCRIPTIONMODE'     // Alexa is describing the final choice and prompting to start again or quit
 };
 
-
 // Questions
-var nodes = [{ "node": 1, "message": "Do you like working with people", "yes": 2, "no": 3 },
-             { "node": 2, "message": "Do you like caring for others", "yes": 4, "no": 5 },
-             { "node": 3, "message": "Would you like to work during the day", "yes": 6, "no": 7 },
-             { "node": 4, "message": "Can you stand the sight of blood", "yes": 8, "no": 9 },
-             { "node": 5, "message": "Is money the most important thing in your life", "yes": 10, "no": 11 },
-             { "node": 6, "message": "Do you want to work with animals", "yes": 12, "no": 13 },
-             { "node": 7, "message": "Are you active", "yes": 14, "no": 15 },
+var nodes = [{ "node": 1, "message": "You can chose from the following categories.  Please say the name of the category you're interested in.  You can say 'finance', 'public safety', 'infrastructure', 'environment', 'demographics', 'economy', 'transportation', 'education', 'health', 'housing and development', 'social services', 'politics', or 'recreation'.", "finance": 2, "public safety": 3, "infrastructure":4, "environment":5, "demographics":6, "economy":7, "transportation":8, "education":9, "health":10, "housing and development":11, "social services":12, "politics":13, "recreation":14},
+             { "node": 2, "message": "Okay, finance.  I need more information", "yes": 4, "no": 5 },
+             { "node": 3, "message": "Okay, public safety.", "yes": 6, "no": 7 },
+             { "node": 4, "message": "Okay, infrastructure.", "yes": 8, "no": 9 },
+             { "node": 5, "message": "Okay, environment.", "yes": 10, "no": 11 },
+             { "node": 6, "message": "Okay, demographics.", "yes": 12, "no": 13 },
+             { "node": 7, "message": "Okay, economy.", "yes": 14, "no": 15 },
+             { "node": 8, "message": "Okay, transportation.", "yes": 14, "no": 15 },
+             { "node": 9, "message": "Okay, education.", "yes": 12, "no": 13 },
+             { "node": 10, "message": "Okay, health.", "yes": 14, "no": 15 },
+             { "node": 11, "message": "Okay, housing and development.", "yes": 14, "no": 15 },
+             { "node": 12, "message": "Okay, social services.", "yes": 14, "no": 15 },
+             { "node": 13, "message": "Okay, politics.", "yes": 12, "no": 13 },
+             { "node": 14, "message": "Okay, recreation.", "yes": 14, "no": 15 },
+];
 
 // Answers & descriptions
-             { "node": 8, "message": "Doctor", "yes": 0, "no": 0, "description": "A physician or medical doctor is a professional who practices medicine." },
-             { "node": 9, "message": "Teacher", "yes": 0, "no": 0, "description": "In education, teachers facilitate student learning, often in a school or academy or perhaps in another environment such as outdoors."},
-             { "node": 10, "message": "Sales person", "yes": 0, "no": 0 , "description": "A salesman is someone who works in sales, with the main function of selling products or services to others."},
-             { "node": 11, "message": "Artist", "yes": 0, "no": 0 , "description": "An artist is a person engaged in one or more of any of a broad spectrum of activities related to creating art, practicing the arts, and, or demonstrating an art."},
-             { "node": 12, "message": "Zookeeper", "yes": 0, "no": 0 , "description": "A zookeeper is a person who manages zoo animals that are kept in captivity for conservation or to be displayed to the public, and are usually responsible for the feeding and daily care of the animals."},
-             { "node": 13, "message": "Software engineer", "yes": 0, "no": 0 , "description": "A software engineer is a person who applies the principles of software engineering to the design, development, maintenance, testing, and evaluation of the software and systems that make computers or anything containing software work."},
-             { "node": 14, "message": "Security Guard", "yes": 0, "no": 0 , "description": "A security guard is a private person who is paid to protect an organization's assets from various hazards such as criminal activity, by utilizing preventative measures. "},
-             { "node": 15, "message": "Lighthouse keeper", "yes": 0, "no": 0 , "description": "A lighthouse keeper is the person responsible for tending and caring for a lighthouse, particularly the light and lens in the days when oil lamps and clockwork mechanisms were used."},
+             { "node": 15, "message": "Doctor", "yes": 0, "no": 0, "description": "A physician or medical doctor is a professional who practices medicine." },
+             { "node": 16, "message": "Teacher", "yes": 0, "no": 0, "description": "In education, teachers facilitate student learning, often in a school or academy or perhaps in another environment such as outdoors."},
+             { "node": 17, "message": "Sales person", "yes": 0, "no": 0 , "description": "A salesman is someone who works in sales, with the main function of selling products or services to others."},
+             { "node": 18, "message": "Artist", "yes": 0, "no": 0 , "description": "An artist is a person engaged in one or more of any of a broad spectrum of activities related to creating art, practicing the arts, and, or demonstrating an art."},
+             { "node": 19, "message": "Zookeeper", "yes": 0, "no": 0 , "description": "A zookeeper is a person who manages zoo animals that are kept in captivity for conservation or to be displayed to the public, and are usually responsible for the feeding and daily care of the animals."},
+             { "node": 20, "message": "Software engineer", "yes": 0, "no": 0 , "description": "A software engineer is a person who applies the principles of software engineering to the design, development, maintenance, testing, and evaluation of the software and systems that make computers or anything containing software work."},
+             { "node": 21, "message": "Security Guard", "yes": 0, "no": 0 , "description": "A security guard is a private person who is paid to protect an organization's assets from various hazards such as criminal activity, by utilizing preventative measures. "},
+             { "node": 22, "message": "Lighthouse keeper", "yes": 0, "no": 0 , "description": "A lighthouse keeper is the person responsible for tending and caring for a lighthouse, particularly the light and lens in the days when oil lamps and clockwork mechanisms were used."},
 ];
 
 // this is used for keep track of visted nodes when we test for loops in the tree
@@ -42,7 +49,7 @@ var visited;
 // These are messages that Alexa says to the user during conversation
 
 // This is the intial welcome message
-var welcomeMessage = "Welcome to decision tree, are you ready to play?";
+var welcomeMessage = "Hi there!  I am here to help you find out which data sets might be most helpful for your research.  Let's get started.";
 
 // This is the message that is repeated if the response to the initial welcome message is not heard
 var repeatWelcomeMessage = "Say yes to start the game or no to quit.";
